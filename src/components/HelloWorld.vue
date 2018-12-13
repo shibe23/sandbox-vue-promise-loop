@@ -1,15 +1,29 @@
 <template>
-  <button>Button</button>
+  <button @click="callProps">Button</button>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
+  props:{
+    func: "",
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
     };
   },
+  methods: {
+    callProps: function(){
+      console.log(this.func)
+      this.func.then((res)=>{
+        console.log(res)
+      });
+    }
+  },
+  mounted: function(){
+    this.callProps()
+  }
 };
 </script>
 

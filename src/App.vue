@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <img width="25%" src="./assets/logo.png">
-    <HelloWorld @click="callAPI()"/>
+    <HelloWorld :func="someActions"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -14,20 +15,24 @@ export default {
     HelloWorld,
   },
   methods: {
-    callAPI() {
-      return new Promise((resolve) => {
-        window.setTimeout(() => {
-          console.log('done');
-          resolve();
-        }, 1000);
-        console.log(resolve);
-      }).catch((err) => {
-        console.log(err);
-      });
+    async someActions() {
+      await this.callAPI()
     },
+    async callAPI(){
+      await axios.get("http://localhost:8080/")
+        .then((res) => {
+          console.log(res);
+          return res
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
   },
   mounted() {
-    this.callAPI();
+    // this.callAPI().then((res)=>{
+    //   console.log(res)
+    // });
   },
 };
 </script>
